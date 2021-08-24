@@ -1,1 +1,3 @@
-[ReadMe.md](https://github.com/nitzansm/Chess/files/7040321/ReadMe.md) Chess
+chess game with an AI
+
+full documentation will be added soon (when I finish this project)
