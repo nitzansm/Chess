@@ -1,5 +1,9 @@
 import random
 
+numToColor = {0: "-", 1: "b", 2: "w"}
+numToPiece = {1: "R", 2: "N", 3: "B", 4: "Q", 5: "K", 6: "p"}
+pieceToNum = {"R": 1, "N": 2, "B": 3, "Q": 4, "K": 5, "p": 6}
+colorToNum = {"-": 0, "b": 1, "w": 2}
 pieceScore = {"K": 0, "Q": 10, "R": 5, "B": 3, "N": 3, "p": 1}
 knightScore = [
     [1, 1, 1, 1, 1, 1, 1, 1],
@@ -173,17 +177,18 @@ def scoreBoard(gs):
     board = gs.board
     for r in range(len(gs.board)):
         for c in range(len(gs.board[r])):
-            if board[r][c] != "--":
+            if board[r][c] != 0:
                 piecePositionScore = 0
-                if board[r][c][1] != "K":
-                    if board[r][c][1] != "p":
-                        piecePositionScore = piecePositionScores[board[r][c][1]][r][c]
+                if board[r][c] % 10 != pieceToNum["K"]:
+                    if board[r][c] % 10 != pieceToNum["p"]:
+                        piecePositionScore = piecePositionScores[numToPiece[board[r][c] % 10]][r][c]
                     else:
-                        piecePositionScore = piecePositionScores[board[r][c]][r][c]
-                if board[r][c][0] == "w":
-                    score += pieceScore[board[r][c][1]] + piecePositionScore * 0.1
-                elif board[r][c][0] == "b":
-                    score -= pieceScore[board[r][c][1]] + piecePositionScore * 0.1
+                        pieceName = numToColor[board[r][c]//10] + numToPiece[board[r][c] % 10]
+                        piecePositionScore = piecePositionScores[pieceName][r][c]
+                if board[r][c]//10 == colorToNum["w"]:
+                    score += pieceScore[numToPiece[board[r][c] % 10]] + piecePositionScore * 0.1
+                elif board[r][c]//10 == colorToNum["b"]:
+                    score -= pieceScore[numToPiece[board[r][c] % 10]] + piecePositionScore * 0.1
     return score
 
 
